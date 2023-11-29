@@ -1,0 +1,7 @@
+{
+  "name": "my-app-phaser",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react-vite"
+}
