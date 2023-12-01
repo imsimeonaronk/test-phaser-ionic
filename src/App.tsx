@@ -1,7 +1,4 @@
-import { Redirect, Route } from 'react-router-dom';
-import { IonApp, IonRouterOutlet, setupIonicReact } from '@ionic/react';
-import { IonReactRouter } from '@ionic/react-router';
-import Home from './pages/Home';
+import { IonContent, IonPage, setupIonicReact, useIonViewDidLeave, useIonViewWillEnter } from '@ionic/react';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -21,22 +18,38 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
+import './theme/index.css';
+import { useEffect, useRef } from 'react';
+import { ConfigureGame } from './game/config/GameConfig';
+import { StatusBar } from '@capacitor/status-bar';
+import { NavigationBar } from "@mauricewegner/capacitor-navigation-bar";
 
 setupIonicReact();
 
-const App: React.FC = () => (
-  <IonApp>
-    <IonReactRouter>
-      <IonRouterOutlet>
-        <Route exact path="/home">
-          <Home />
-        </Route>
-        <Route exact path="/">
-          <Redirect to="/home" />
-        </Route>
-      </IonRouterOutlet>
-    </IonReactRouter>
-  </IonApp>
-);
+const PGame: React.FC = () => {
 
-export default App;
+    const hideStatusBar = async () => {
+        await StatusBar.hide();
+    };
+    hideStatusBar();
+
+    const hideNavigationBar = async () => {
+        NavigationBar.hide();
+    };
+    hideNavigationBar();
+
+    const ref = useRef<HTMLDivElement | null>(null);
+    useEffect(()=>{
+        let game = ConfigureGame(ref.current as any);
+    },[]);
+
+    return (
+        <IonPage>
+            <IonContent className="ion-no-padding" fullscreen={false} scrollY={false} scrollX={false}>
+                <div className="gamediv" id="phaser-game" ref={ref}></div>
+            </IonContent>
+        </IonPage>
+    );
+};
+
+export default PGame;
