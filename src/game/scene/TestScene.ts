@@ -21,8 +21,12 @@ class TestScene extends Phaser.Scene {
     create(){
         let rect = this.add.rectangle(0,0,(window.innerWidth*0.5),(window.innerHeight*0.5)).setOrigin(0.5,0.5)
         rect.setFillStyle(0xff0000);
-        rect.x = this.cameras.main.centerX
-        rect.y = this.cameras.main.centerY
+        rect.x = this.cameras.main.centerX;
+        rect.y = this.cameras.main.centerY;
+
+        let textview = this.add.text(0,0,"Hell world!").setOrigin(0.5).setFontSize(30);
+        textview.x = this.cameras.main.centerX;
+        textview.y = this.cameras.main.centerY;
     }
 
     upload(){
