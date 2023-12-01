@@ -23,18 +23,23 @@ import { useEffect, useRef } from 'react';
 import { ConfigureGame } from './game/config/GameConfig';
 import { StatusBar } from '@capacitor/status-bar';
 import { NavigationBar } from "@mauricewegner/capacitor-navigation-bar";
+import { Capacitor } from '@capacitor/core';
 
 setupIonicReact();
 
 const PGame: React.FC = () => {
 
     const hideStatusBar = async () => {
-        await StatusBar.hide();
+        if(Capacitor.getPlatform() != "web"){
+            await StatusBar.hide();
+        }
     };
     hideStatusBar();
 
     const hideNavigationBar = async () => {
-        NavigationBar.hide();
+        if(Capacitor.getPlatform() != "web"){
+            NavigationBar.hide();
+        }
     };
     hideNavigationBar();
 
